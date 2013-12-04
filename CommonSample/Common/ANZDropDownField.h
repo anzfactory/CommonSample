@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ANZDropDownField : UITextField <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ANZDropDownField : UITextField <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSArray* dropList;            // 表示するドロップリスト
 @property (nonatomic) CGFloat displayNumOfRows;     // 表示件数

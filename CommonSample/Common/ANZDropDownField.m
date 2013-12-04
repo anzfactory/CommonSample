@@ -75,11 +75,9 @@ static NSString* _cellID = @"cell";
     [self hideDropDownListWithUpdateText:self.dropList[indexPath.item]];
 }
 
-#pragma mark - UITextFieldDelegate
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    // ドロップリストが設定されていない場合は通常のUITextFieldとして振る舞う
-    if (!self.dropList || [self.dropList count] == 0) {
+    if (! self.dropList || [self.dropList count] == 0) {
         return YES;
     }
     
@@ -92,18 +90,11 @@ static NSString* _cellID = @"cell";
     return NO;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self resignFirstResponder];
-    return YES;
-}
-
 #pragma mark - methods
 - (void)prepare
 {
     _borderWidth = .5f;
     
-    self.delegate = self;
     _tableView = [[UITableView alloc] initWithFrame:self.frame style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -156,7 +147,14 @@ static NSString* _cellID = @"cell";
 
 - (void)adjustTableView
 {
-    CGFloat heightTableVeiw = self.heightOfListItem * self.displayNumOfRows;
+    NSUInteger numOfRows = 0;
+    if (self.displayNumOfRows > [self.dropList count]) {
+        numOfRows = [self.dropList count];
+    } else {
+        numOfRows = self.displayNumOfRows;
+    }
+    
+    CGFloat heightTableVeiw = self.heightOfListItem * numOfRows;
     CGPoint startPoint = CGPointZero;
     CGFloat selfBottomLine = self.frame.origin.y + self.frame.size.height;
     

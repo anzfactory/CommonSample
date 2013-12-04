@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.smapleField.dropList = @[@"item 1",@"item 2",@"item 3",@"item 4",@"item 5",@"item 6",@"item 7",@"item 8",@"item 9",@"item 10"];
+    self.smapleField.dropList = @[@"item 1",@"item 2",@"item 3"];
     
     ANZDropDownField* newAnz = [[ANZDropDownField alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 35, 200, 30)];
     newAnz.text = @"";
