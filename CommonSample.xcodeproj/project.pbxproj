@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10CF93B184ECA5200E0748F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A10CF939184ECA5200E0748F /* MainViewController.m */; };
+		A10CF93C184ECA5200E0748F /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10CF93A184ECA5200E0748F /* MainViewController.xib */; };
+		A10CF940184ECA6C00E0748F /* DropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A10CF93E184ECA6C00E0748F /* DropDownViewController.m */; };
+		A10CF941184ECA6C00E0748F /* DropDownViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10CF93F184ECA6C00E0748F /* DropDownViewController.xib */; };
+		A10CF944184ECA9400E0748F /* ANZDropDownField.m in Sources */ = {isa = PBXBuildFile; fileRef = A10CF943184ECA9400E0748F /* ANZDropDownField.m */; };
 		A1395E80184E1AF40027B7BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1395E7F184E1AF40027B7BD /* Foundation.framework */; };
 		A1395E82184E1AF40027B7BD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1395E81184E1AF40027B7BD /* CoreGraphics.framework */; };
 		A1395E84184E1AF40027B7BD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1395E83184E1AF40027B7BD /* UIKit.framework */; };
@@ -38,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A10CF938184ECA5200E0748F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		A10CF939184ECA5200E0748F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		A10CF93A184ECA5200E0748F /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		A10CF93D184ECA6C00E0748F /* DropDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDownViewController.h; sourceTree = "<group>"; };
+		A10CF93E184ECA6C00E0748F /* DropDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropDownViewController.m; sourceTree = "<group>"; };
+		A10CF93F184ECA6C00E0748F /* DropDownViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownViewController.xib; sourceTree = "<group>"; };
+		A10CF942184ECA9400E0748F /* ANZDropDownField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANZDropDownField.h; sourceTree = "<group>"; };
+		A10CF943184ECA9400E0748F /* ANZDropDownField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANZDropDownField.m; sourceTree = "<group>"; };
 		A1395E7C184E1AF40027B7BD /* CommonSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1395E7F184E1AF40027B7BD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A1395E81184E1AF40027B7BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +142,12 @@
 				A1395E8F184E1AF40027B7BD /* AppDelegate.m */,
 				A1395E91184E1AF40027B7BD /* Images.xcassets */,
 				A1395E86184E1AF40027B7BD /* Supporting Files */,
+				A10CF938184ECA5200E0748F /* MainViewController.h */,
+				A10CF939184ECA5200E0748F /* MainViewController.m */,
+				A10CF93A184ECA5200E0748F /* MainViewController.xib */,
+				A10CF93D184ECA6C00E0748F /* DropDownViewController.h */,
+				A10CF93E184ECA6C00E0748F /* DropDownViewController.m */,
+				A10CF93F184ECA6C00E0748F /* DropDownViewController.xib */,
 			);
 			path = CommonSample;
 			sourceTree = "<group>";
@@ -176,6 +195,8 @@
 				A1395EB3184E1BBF0027B7BD /* ANZUtils.m */,
 				A1395EB1184E1BBF0027B7BD /* NSString+Extention.h */,
 				A1395EAF184E1BBF0027B7BD /* NSString+Extention.m */,
+				A10CF942184ECA9400E0748F /* ANZDropDownField.h */,
+				A10CF943184ECA9400E0748F /* ANZDropDownField.m */,
 			);
 			name = Common;
 			path = CommonSample/Common;
@@ -257,8 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1395E8A184E1AF40027B7BD /* InfoPlist.strings in Resources */,
+				A10CF941184ECA6C00E0748F /* DropDownViewController.xib in Resources */,
 				A1395EC1184E1BC00027B7BD /* ANZPopupView.xib in Resources */,
 				A1395E92184E1AF40027B7BD /* Images.xcassets in Resources */,
+				A10CF93C184ECA5200E0748F /* MainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,8 +301,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1395EC0184E1BC00027B7BD /* ANZPopupView.m in Sources */,
+				A10CF944184ECA9400E0748F /* ANZDropDownField.m in Sources */,
 				A1395EBE184E1BC00027B7BD /* ANZUtils.m in Sources */,
 				A1395E90184E1AF40027B7BD /* AppDelegate.m in Sources */,
+				A10CF940184ECA6C00E0748F /* DropDownViewController.m in Sources */,
+				A10CF93B184ECA5200E0748F /* MainViewController.m in Sources */,
 				A1395EBC184E1BC00027B7BD /* NSString+Extention.m in Sources */,
 				A1395EC2184E1BC00027B7BD /* ANZUserInfo.m in Sources */,
 				A1395EBF184E1BC00027B7BD /* ANZPickerView.m in Sources */,
@@ -484,6 +510,7 @@
 				A1395EAA184E1AF40027B7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A1395EAB184E1AF40027B7BD /* Build configuration list for PBXNativeTarget "CommonSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +519,7 @@
 				A1395EAD184E1AF40027B7BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
