@@ -55,6 +55,11 @@ static NSString* _cellID = @"cell";
         cell.textLabel.font = self.font;
         cell.textLabel.textColor = self.textColor;
     }
+    
+    if (self.fontOfListItem) {
+        cell.textLabel.font = self.fontOfListItem;
+    }
+    
     cell.textLabel.text = self.dropList[indexPath.item];
     
     return cell;
