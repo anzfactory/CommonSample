@@ -12,10 +12,10 @@
 
 @interface ANZDropDownField() {
     CGFloat _borderWidth;
+    UITapGestureRecognizer* _singleTapGesture;
 }
 
 @property (nonatomic) UITableView* tableView;
-
 @end
 
 @implementation ANZDropDownField
@@ -38,6 +38,17 @@ static NSString* _cellID = @"cell";
     
     [self prepare];
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    BOOL result = [_singleTapGesture isEqual:gestureRecognizer];
+    if (! self.dropList || [self.dropList count] == 0) {
+        return !result;
+    } else {
+        return result;
+    }
+}
+
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -75,21 +86,6 @@ static NSString* _cellID = @"cell";
     [self hideDropDownListWithUpdateText:self.dropList[indexPath.item]];
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if (! self.dropList || [self.dropList count] == 0) {
-        return YES;
-    }
-    
-    if (self.tableView.superview) {
-        [self hideDropDownList];
-    } else {
-        [self showDropDownList];
-    }
-    
-    return NO;
-}
-
 #pragma mark - methods
 - (void)prepare
 {
@@ -103,6 +99,11 @@ static NSString* _cellID = @"cell";
     _displayNumOfRows = 5;
     _heightOfListItem = self.frame.size.height;
     _borderColorForList = [UIColor lightGrayColor];
+    
+    // ドロップダウンリスト開閉用に登録
+    _singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [self addGestureRecognizer:_singleTapGesture];
+
 
 }
 
@@ -176,6 +177,15 @@ static NSString* _cellID = @"cell";
     self.tableView.layer.borderColor = self.borderColorForList.CGColor;
     self.tableView.backgroundColor = self.backgroundColor;
     
+}
+
+- (void)handleSingleTap:(id)sender
+{
+    if (self.tableView.superview) {
+        [self hideDropDownList];
+    } else {
+        [self showDropDownList];
+    }
 }
 
 @end

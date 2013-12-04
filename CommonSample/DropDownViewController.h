@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DropDownViewController : UIViewController
+@interface DropDownViewController : UIViewController <UITextFieldDelegate>
 
 @end
