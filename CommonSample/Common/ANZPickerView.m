@@ -1,6 +1,5 @@
 //
 //  ANZPickerView.m
-//  golfdiary
 //
 //  Created by ANZ on 2013/11/19.
 //

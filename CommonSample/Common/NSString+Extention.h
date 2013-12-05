@@ -1,6 +1,5 @@
 //
 //  NSString+Extention.h
-//  golfdiary
 //
 //  Created by ANZ on 2013/11/19.
 //  Copyright (c) 2013年 ANZ Factory. All rights reserved.
