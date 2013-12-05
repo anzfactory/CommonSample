@@ -22,11 +22,9 @@
 
 static NSString* _cellID = @"cell";
 
-- (id)initWithFrame:(CGRect)frame
+- (id)init
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self == [super init]) {
         [self prepare];
     }
     return self;
@@ -47,6 +45,16 @@ static NSString* _cellID = @"cell";
     } else {
         return result;
     }
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    if (self.heightOfListItem > 0) {
+        return;
+    }
+    self.heightOfListItem = frame.size.height;
 }
 
 

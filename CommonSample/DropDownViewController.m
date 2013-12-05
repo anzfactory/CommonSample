@@ -32,7 +32,10 @@
     self.smapleField.dropList = @[@"item 1",@"item 2",@"item 3",@"item 4",@"item 5",@"item 6",@"item 7",@"item 8",@"item 9",@"item 10"];
     self.smapleField.delegate = self;
     
-    ANZDropDownField* newAnz = [[ANZDropDownField alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 35, 200, 30)];
+//    ANZDropDownField* newAnz = [[ANZDropDownField alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 35, 200, 30)];
+    ANZDropDownField* newAnz = [ANZDropDownField new];
+    newAnz.frame = CGRectMake(self.view.center.x - 100, self.view.frame.size.height - 35, 200, 30);
+    
     newAnz.text = @"";
     newAnz.borderStyle = UITextBorderStyleRoundedRect;
     newAnz.dropList = @[@"item 1",@"item 2",@"item 3",@"item 4",@"item 5"];
