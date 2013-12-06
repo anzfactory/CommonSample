@@ -10,11 +10,8 @@
 
 #import <FMDatabase.h>
 
-@interface ANZFMDBAbstract : NSObject {
-    @protected
-    FMDatabase* _db;
-}
+@interface ANZFMDBAbstract : NSObject
 
-+ (id)sharedManager;
+@property (nonatomic, readonly) FMDatabase* db;
 
 @end
