@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 
 #import "DropDownViewController.h"
+#import "PropertiesListViewController.h"
 
 @interface MainViewController ()
 
@@ -38,6 +39,9 @@
 }
 - (IBAction)tapDropDownField:(id)sender {
     [self.navigationController pushViewController:[DropDownViewController new] animated:YES];
+}
+- (IBAction)tapPropertiesList:(id)sender {
+    [self.navigationController pushViewController:[PropertiesListViewController new] animated:YES];
 }
 
 @end

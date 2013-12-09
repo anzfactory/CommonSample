@@ -30,6 +30,9 @@
 		A1395EC0184E1BC00027B7BD /* ANZPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1395EB8184E1BC00027B7BD /* ANZPopupView.m */; };
 		A1395EC1184E1BC00027B7BD /* ANZPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1395EB9184E1BC00027B7BD /* ANZPopupView.xib */; };
 		A1395EC2184E1BC00027B7BD /* ANZUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A1395EBB184E1BC00027B7BD /* ANZUserInfo.m */; };
+		A1CBC5EC1855786100FED3BE /* NSObject+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CBC5EB1855786100FED3BE /* NSObject+Custom.m */; };
+		A1CBC5F0185579DE00FED3BE /* PropertiesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CBC5EE185579DE00FED3BE /* PropertiesListViewController.m */; };
+		A1CBC5F1185579DE00FED3BE /* PropertiesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CBC5EF185579DE00FED3BE /* PropertiesListViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,11 @@
 		A1395EB9184E1BC00027B7BD /* ANZPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ANZPopupView.xib; sourceTree = "<group>"; };
 		A1395EBA184E1BC00027B7BD /* ANZUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANZUserInfo.h; sourceTree = "<group>"; };
 		A1395EBB184E1BC00027B7BD /* ANZUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANZUserInfo.m; sourceTree = "<group>"; };
+		A1CBC5EA1855786100FED3BE /* NSObject+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Custom.h"; sourceTree = "<group>"; };
+		A1CBC5EB1855786100FED3BE /* NSObject+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Custom.m"; sourceTree = "<group>"; };
+		A1CBC5ED185579DE00FED3BE /* PropertiesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesListViewController.h; sourceTree = "<group>"; };
+		A1CBC5EE185579DE00FED3BE /* PropertiesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertiesListViewController.m; sourceTree = "<group>"; };
+		A1CBC5EF185579DE00FED3BE /* PropertiesListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PropertiesListViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +146,9 @@
 		A1395E85184E1AF40027B7BD /* CommonSample */ = {
 			isa = PBXGroup;
 			children = (
+				A1CBC5ED185579DE00FED3BE /* PropertiesListViewController.h */,
+				A1CBC5EE185579DE00FED3BE /* PropertiesListViewController.m */,
+				A1CBC5EF185579DE00FED3BE /* PropertiesListViewController.xib */,
 				A1395E8E184E1AF40027B7BD /* AppDelegate.h */,
 				A1395E8F184E1AF40027B7BD /* AppDelegate.m */,
 				A1395E91184E1AF40027B7BD /* Images.xcassets */,
@@ -197,6 +208,8 @@
 				A1395EAF184E1BBF0027B7BD /* NSString+Extention.m */,
 				A10CF942184ECA9400E0748F /* ANZDropDownField.h */,
 				A10CF943184ECA9400E0748F /* ANZDropDownField.m */,
+				A1CBC5EA1855786100FED3BE /* NSObject+Custom.h */,
+				A1CBC5EB1855786100FED3BE /* NSObject+Custom.m */,
 			);
 			name = Common;
 			path = CommonSample/Common;
@@ -277,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1CBC5F1185579DE00FED3BE /* PropertiesListViewController.xib in Resources */,
 				A1395E8A184E1AF40027B7BD /* InfoPlist.strings in Resources */,
 				A10CF941184ECA6C00E0748F /* DropDownViewController.xib in Resources */,
 				A1395EC1184E1BC00027B7BD /* ANZPopupView.xib in Resources */,
@@ -303,7 +317,9 @@
 				A1395EC0184E1BC00027B7BD /* ANZPopupView.m in Sources */,
 				A10CF944184ECA9400E0748F /* ANZDropDownField.m in Sources */,
 				A1395EBE184E1BC00027B7BD /* ANZUtils.m in Sources */,
+				A1CBC5EC1855786100FED3BE /* NSObject+Custom.m in Sources */,
 				A1395E90184E1AF40027B7BD /* AppDelegate.m in Sources */,
+				A1CBC5F0185579DE00FED3BE /* PropertiesListViewController.m in Sources */,
 				A10CF940184ECA6C00E0748F /* DropDownViewController.m in Sources */,
 				A10CF93B184ECA5200E0748F /* MainViewController.m in Sources */,
 				A1395EBC184E1BC00027B7BD /* NSString+Extention.m in Sources */,

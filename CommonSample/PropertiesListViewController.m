@@ -8,7 +8,10 @@
 
 #import "PropertiesListViewController.h"
 
+#import "NSObject+Custom.h"
+
 @interface PropertiesListViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
@@ -27,6 +30,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.textView.text = [[self properties] description];
 }
 
 - (void)didReceiveMemoryWarning

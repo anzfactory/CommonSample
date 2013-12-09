@@ -10,4 +10,6 @@
 
 @interface NSObject (Custom)
 
+- (NSDictionary *)properties;
+
 @end
