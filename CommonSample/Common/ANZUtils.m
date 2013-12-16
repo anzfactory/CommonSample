@@ -25,4 +25,25 @@
     return [[UIScreen mainScreen] bounds].size.height;
 }
 
++ (NSString *)curretnDateFormatYMD
+{
+    return [ANZUtils dateFormatYMD:[NSDate date]];
+}
+
++ (NSString *)dateFormatYMD:(NSDate *)date
+{
+    NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+                                               fromDate:date];
+    
+    return [NSString stringWithFormat:@"%d/%d/%d", [components year], [components month], [components day]];
+
+}
+
++ (NSUInteger)lengthOfMonthWithCalendar:(NSCalendar *)calendar targetDate:(NSDate *)date
+{
+    NSRange range = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:date];
+    return range.length;
+}
+
 @end

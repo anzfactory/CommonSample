@@ -12,4 +12,8 @@
 + (float)currentSysytemVersion;
 + (float)heightMainScreen;
 
++ (NSString *)curretnDateFormatYMD;
++ (NSString *)dateFormatYMD:(NSDate *)date;
++ (NSUInteger)lengthOfMonthWithCalendar:(NSCalendar *)calendar targetDate:(NSDate *)date;
+
 @end
