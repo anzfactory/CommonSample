@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10396551863576900ABFD31 /* ANZCalendarNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = A10396541863576900ABFD31 /* ANZCalendarNavigator.m */; };
 		A10CF93B184ECA5200E0748F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A10CF939184ECA5200E0748F /* MainViewController.m */; };
 		A10CF93C184ECA5200E0748F /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A10CF93A184ECA5200E0748F /* MainViewController.xib */; };
 		A10CF940184ECA6C00E0748F /* DropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A10CF93E184ECA6C00E0748F /* DropDownViewController.m */; };
@@ -37,6 +38,7 @@
 		A1790736185F0A2800198D68 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1790731185F0A2800198D68 /* CalendarViewController.xib */; };
 		A1790737185F0A2800198D68 /* UtilsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1790733185F0A2800198D68 /* UtilsViewController.m */; };
 		A1790738185F0A2800198D68 /* UtilsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1790734185F0A2800198D68 /* UtilsViewController.xib */; };
+		A1ACE124185F5F11001A28C1 /* ANZCalendarMenuBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ACE123185F5F11001A28C1 /* ANZCalendarMenuBar.m */; };
 		A1CBC5EC1855786100FED3BE /* NSObject+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CBC5EB1855786100FED3BE /* NSObject+Custom.m */; };
 		A1CBC5F0185579DE00FED3BE /* PropertiesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CBC5EE185579DE00FED3BE /* PropertiesListViewController.m */; };
 		A1CBC5F1185579DE00FED3BE /* PropertiesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CBC5EF185579DE00FED3BE /* PropertiesListViewController.xib */; };
@@ -53,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A10396531863576900ABFD31 /* ANZCalendarNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANZCalendarNavigator.h; sourceTree = "<group>"; };
+		A10396541863576900ABFD31 /* ANZCalendarNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANZCalendarNavigator.m; sourceTree = "<group>"; };
 		A10CF938184ECA5200E0748F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A10CF939184ECA5200E0748F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		A10CF93A184ECA5200E0748F /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		A1790732185F0A2800198D68 /* UtilsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsViewController.h; sourceTree = "<group>"; };
 		A1790733185F0A2800198D68 /* UtilsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilsViewController.m; sourceTree = "<group>"; };
 		A1790734185F0A2800198D68 /* UtilsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UtilsViewController.xib; sourceTree = "<group>"; };
+		A1ACE122185F5F11001A28C1 /* ANZCalendarMenuBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANZCalendarMenuBar.h; sourceTree = "<group>"; };
+		A1ACE123185F5F11001A28C1 /* ANZCalendarMenuBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANZCalendarMenuBar.m; sourceTree = "<group>"; };
 		A1CBC5EA1855786100FED3BE /* NSObject+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Custom.h"; sourceTree = "<group>"; };
 		A1CBC5EB1855786100FED3BE /* NSObject+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Custom.m"; sourceTree = "<group>"; };
 		A1CBC5ED185579DE00FED3BE /* PropertiesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertiesListViewController.h; sourceTree = "<group>"; };
@@ -220,12 +226,7 @@
 		A1395EAE184E1B9B0027B7BD /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A1790726185F0A0F00198D68 /* ANZCalendar.h */,
-				A1790727185F0A0F00198D68 /* ANZCalendar.m */,
-				A1790728185F0A0F00198D68 /* ANZCalendarCell.h */,
-				A1790729185F0A0F00198D68 /* ANZCalendarCell.m */,
-				A179072A185F0A0F00198D68 /* ANZCalendarDataObject.h */,
-				A179072B185F0A0F00198D68 /* ANZCalendarDataObject.m */,
+				A1ACE121185F5ECC001A28C1 /* ANZCalendar */,
 				A1395EB5184E1BBF0027B7BD /* ANZPickerView.h */,
 				A1395EB4184E1BBF0027B7BD /* ANZPickerView.m */,
 				A1395EB7184E1BBF0027B7BD /* ANZPopupView.h */,
@@ -244,6 +245,23 @@
 			);
 			name = Common;
 			path = CommonSample/Common;
+			sourceTree = "<group>";
+		};
+		A1ACE121185F5ECC001A28C1 /* ANZCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				A1790726185F0A0F00198D68 /* ANZCalendar.h */,
+				A1790727185F0A0F00198D68 /* ANZCalendar.m */,
+				A1790728185F0A0F00198D68 /* ANZCalendarCell.h */,
+				A1790729185F0A0F00198D68 /* ANZCalendarCell.m */,
+				A179072A185F0A0F00198D68 /* ANZCalendarDataObject.h */,
+				A179072B185F0A0F00198D68 /* ANZCalendarDataObject.m */,
+				A1ACE122185F5F11001A28C1 /* ANZCalendarMenuBar.h */,
+				A1ACE123185F5F11001A28C1 /* ANZCalendarMenuBar.m */,
+				A10396531863576900ABFD31 /* ANZCalendarNavigator.h */,
+				A10396541863576900ABFD31 /* ANZCalendarNavigator.m */,
+			);
+			name = ANZCalendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +311,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = ANZ;
 				TargetAttributes = {
+					A1395E7B184E1AF40027B7BD = {
+						DevelopmentTeam = L2JKAT4K4R;
+					};
 					A1395E96184E1AF40027B7BD = {
 						TestTargetID = A1395E7B184E1AF40027B7BD;
 					};
@@ -361,6 +382,8 @@
 				A1395EBC184E1BC00027B7BD /* NSString+Extention.m in Sources */,
 				A1395EC2184E1BC00027B7BD /* ANZUserInfo.m in Sources */,
 				A1790735185F0A2800198D68 /* CalendarViewController.m in Sources */,
+				A1ACE124185F5F11001A28C1 /* ANZCalendarMenuBar.m in Sources */,
+				A10396551863576900ABFD31 /* ANZCalendarNavigator.m in Sources */,
 				A1395EBF184E1BC00027B7BD /* ANZPickerView.m in Sources */,
 				A179072C185F0A0F00198D68 /* ANZCalendar.m in Sources */,
 				A1395E8C184E1AF40027B7BD /* main.m in Sources */,
@@ -422,7 +445,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shingo asato (D37SHY88XF)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -461,7 +484,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shingo asato (D37SHY88XF)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -482,10 +505,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CommonSample/CommonSample-Prefix.pch";
 				INFOPLIST_FILE = "CommonSample/CommonSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -495,10 +521,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CommonSample/CommonSample-Prefix.pch";
 				INFOPLIST_FILE = "CommonSample/CommonSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ANZCalendar : UIView <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ANZCalendar : UICollectionView <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (nonatomic) NSDate* displayDate;
+
+- (id)initWithDisplayDate:(NSDate *)displayDate;
+- (void)show;
+
+
+- (void)dismiss;
 
 @end

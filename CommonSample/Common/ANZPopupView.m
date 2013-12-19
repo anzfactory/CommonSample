@@ -239,7 +239,7 @@
     self.wrapperView.center = self.center;
     
     // 表示するwindowを見つけ出して表示
-    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];
+    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication] windows] reverseObjectEnumerator];
     UIWindow* window = nil;
     for (window in frontToBackWindows) {
         if (window.windowLevel == UIWindowLevelNormal) {

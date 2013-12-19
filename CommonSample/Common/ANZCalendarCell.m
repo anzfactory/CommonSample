@@ -8,7 +8,9 @@
 
 #import "ANZCalendarCell.h"
 
-@interface ANZCalendarCell()
+@interface ANZCalendarCell() {
+    UIBezierPath* _bezier;
+}
 
 @property (nonatomic) UILabel* lblDay;
 
@@ -18,10 +20,8 @@
 
 - (id)init
 {
-    if (self = [super init]) {
-        [self initCell];
+    if (self = [self initWithFrame:CGRectZero]) {
     }
-    
     return self;
 }
 
@@ -35,9 +35,11 @@
 
 - (void)initCell
 {
+    self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.layer.borderWidth = .25f;
+    
     _lblDay = [UILabel new];
     _lblDay.textAlignment = NSTextAlignmentCenter;
-    
     [self addSubview:_lblDay];
 }
 
@@ -56,6 +58,9 @@
     if (! data.isCurrentMonth) {    // 穴埋めで表示されてる箇所
         self.lblDay.font = [UIFont systemFontOfSize:10];
         self.lblDay.textColor = [UIColor lightGrayColor];
+    } else {
+        self.lblDay.font = [UIFont systemFontOfSize:18];
+        self.lblDay.textColor = [UIColor blackColor];
     }
     
     if ([data.components weekday] == 1) {   // 日曜
@@ -65,76 +70,6 @@
     } else {
         self.backgroundColor = [UIColor whiteColor];
     }
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    [[UIColor grayColor] setStroke];
-    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
-    // 線の幅を指定
-    [bezierPath setLineWidth:.5f];
-    
-    NSArray* vertex = [self drawVertexFromCalendarData];
-    // 始点を設定
-    [bezierPath moveToPoint:[[vertex firstObject] CGPointValue]];
-    // 線を追加
-    for (NSUInteger i = 1; i < [vertex count]; i++) {
-         [bezierPath addLineToPoint:[vertex[i] CGPointValue]];
-    }
-    // 線を描画
-    [bezierPath stroke];
-}
-
-- (NSArray *)drawVertexFromCalendarData
-{
-    NSArray* vertex;
-    if (self.data.isFirstWeek) {            // 第1週か
-        
-        // 日曜(週の始めか)
-        if ([self.data.components weekday] == 1) {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, self.frame.size.height)],
-                       [NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)]];
-        } else {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)]];
-        }
-        
-    } else if (self.data.isLastWeek) {      // 最終週か
-        
-        // 日曜(週の始めか)
-        if ([self.data.components weekday] == 1) {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)],
-                       [NSValue valueWithCGPoint:CGPointMake(0, self.frame.size.height)],
-                       [NSValue valueWithCGPoint:CGPointMake(0, 0)]];
-        } else {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)],
-                       [NSValue valueWithCGPoint:CGPointMake(0, self.frame.size.height)]];
-        }
-        
-    } else {
-        
-        // 日曜(週の始めか)
-        if ([self.data.components weekday] == 1) {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, self.frame.size.height)],
-                       [NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)]];
-        } else {
-            vertex = @[[NSValue valueWithCGPoint:CGPointMake(0, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, 0)],
-                       [NSValue valueWithCGPoint:CGPointMake(self.frame.size.width, self.frame.size.height)]];
-        }
-        
-    }
-    
-    return vertex;
 }
 
 @end

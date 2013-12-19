@@ -19,10 +19,4 @@
     return [NSString stringWithFormat:@"%d", [self.components day]];
 }
 
-- (void)setComponents:(NSDateComponents *)components
-{
-    _components = components;
-    
-    NSLog(@"com:%@", _components);
-}
 @end
