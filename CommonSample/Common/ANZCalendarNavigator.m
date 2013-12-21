@@ -35,6 +35,7 @@
                 _lblYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
                 _lblYear.adjustsFontSizeToFitWidth = YES;
                 _lblYear.textAlignment = NSTextAlignmentCenter;
+                _lblYear.backgroundColor = [UIColor clearColor];
                 [self addSubview:_lblYear];
                 break;
                 
@@ -43,6 +44,7 @@
                 _lblMonth= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
                 _lblMonth.numberOfLines = 3;
                 _lblMonth.textAlignment = NSTextAlignmentCenter;
+                _lblMonth.backgroundColor = [UIColor clearColor];
                 [self addSubview:_lblMonth];
                 break;
         }
@@ -72,7 +74,7 @@
     }
 }
 
-- (void)updateLabeWithDisplayDate:(NSDate *)displayDate
+- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes
 {
     NSDateComponents* components = [NSDateComponents new];
     NSTimeZone* tz = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
@@ -100,7 +102,7 @@
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
     if (self.lblYear) {
-        self.lblYear.text = [NSString stringWithFormat:@"%d", [components year]];
+        self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", [components year]] attributes:attributes];
     } else {
         NSString* month;
         switch ([components month]) {
@@ -154,7 +156,7 @@
                 break;
         }
         
-        self.lblMonth.text = month;
+        self.lblMonth.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
     }
 }
 

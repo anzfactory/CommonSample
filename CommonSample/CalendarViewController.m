@@ -8,8 +8,6 @@
 
 #import "CalendarViewController.h"
 
-#import "ANZCalendar.h"
-
 
 @interface CalendarViewController ()
 
@@ -31,24 +29,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    ANZCalendar* calendar = [[ANZCalendar alloc] initWithFrame:CGRectMake(0, 100, 320, 260)];
-//    [self.view addSubview:calendar];
     
     self.calndar = [[ANZCalendar alloc] initWithDisplayDate:[NSDate date]];
-
+    self.calndar.delegate = self;
+//    self.calndar.colorLine = [UIColor blackColor];
+//    self.calndar.colorSunday = [UIColor orangeColor];
+//    self.calndar.colorSaturday = [UIColor greenColor];
+//    self.calndar.colorWeekday = [UIColor lightGrayColor];
+//    self.calndar.colorStrong = [UIColor purpleColor];
+//    self.calndar.colorTopBar = [UIColor redColor];
+//    self.calndar.colorNavigatorPrevMonth = [UIColor greenColor];
+//    self.calndar.colorNavigatorNextMonth = [UIColor magentaColor];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor blackColor];
 }
 
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    
-    [[[ANZCalendar alloc] initWithDisplayDate:[NSDate date]] show];
-}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -58,6 +53,38 @@
     
     [self.calndar show];
     
+}
+
+- (void)showAfterWithCalendar:(ANZCalendar *)calendar
+{
+    NSLog(@"show after");
+}
+
+- (BOOL)isStrongDayWithDateComponents:(NSDateComponents *)dateComponents
+{
+    // とりあえずの返し
+    return ([dateComponents day] % 6 == 0);
+}
+
+- (void)willRenewCalendarWithNewDate:(NSDate *)newDate
+{
+    NSLog(@"new date :%@", newDate);
+}
+
+
+- (void)dismissAfter
+{
+    NSLog(@"dissmissafter");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"touch b");
+}
+
+- (void)didSelectDay:(NSDateComponents *)dateComponents
+{
+    NSLog(@"select day:%@", dateComponents);
 }
 
 @end

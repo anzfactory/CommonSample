@@ -10,6 +10,10 @@
 
 @interface ANZCalendarMenuBar : UICollectionReusableView
 
-@property (nonatomic) NSString* title;
+@property (nonatomic) NSAttributedString* attributeClose;
+@property (nonatomic) NSAttributedString* attributeTitle;
+
++ (CGSize)size;
+
 
 @end

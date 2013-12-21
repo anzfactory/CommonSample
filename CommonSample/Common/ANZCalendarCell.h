@@ -13,5 +13,6 @@
 @interface ANZCalendarCell : UICollectionViewCell
 
 @property (nonatomic) ANZCalendarDataObject* data;
+@property (nonatomic) UIColor* lineColor;
 
 @end

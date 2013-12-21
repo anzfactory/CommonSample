@@ -20,5 +20,5 @@ typedef enum {
 @property (nonatomic, readonly) ANZCalendarNavigatorType navigationType;
 
 - (id)initWithFrame:(CGRect)frame navigationType:(ANZCalendarNavigatorType)navigationType;
-- (void)updateLabeWithDisplayDate:(NSDate *)displayDate;
+- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary*)attributes;
 @end

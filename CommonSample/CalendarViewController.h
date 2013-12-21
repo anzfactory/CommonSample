@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalendarViewController : UIViewController
+#import "ANZCalendar.h"
+
+@interface CalendarViewController : UIViewController <UICollectionViewDelegate, ANZCalendarDelegate>
 
 @end
