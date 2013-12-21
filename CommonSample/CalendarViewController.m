@@ -11,7 +11,7 @@
 
 @interface CalendarViewController ()
 
-@property (nonatomic) ANZCalendar* calndar;
+@property (nonatomic) ANZCalendar* calendar;
 
 @end
 
@@ -30,16 +30,17 @@
 {
     [super viewDidLoad];
     
-    self.calndar = [[ANZCalendar alloc] initWithDisplayDate:[NSDate date]];
-    self.calndar.delegate = self;
-//    self.calndar.colorLine = [UIColor blackColor];
-//    self.calndar.colorSunday = [UIColor orangeColor];
-//    self.calndar.colorSaturday = [UIColor greenColor];
-//    self.calndar.colorWeekday = [UIColor lightGrayColor];
-//    self.calndar.colorStrong = [UIColor purpleColor];
-//    self.calndar.colorTopBar = [UIColor redColor];
-//    self.calndar.colorNavigatorPrevMonth = [UIColor greenColor];
-//    self.calndar.colorNavigatorNextMonth = [UIColor magentaColor];
+    self.calendar = [[ANZCalendar alloc] initWithDisplayDate:[NSDate date]];
+    self.calendar.delegate = self;
+//    self.calendar.colorLine = [UIColor blackColor];
+//    self.calendar.colorSunday = [UIColor orangeColor];
+//    self.calendar.colorSaturday = [UIColor greenColor];
+//    self.calendar.colorWeekday = [UIColor lightGrayColor];
+//    self.calendar.colorStrong = [UIColor purpleColor];
+//    self.calendar.colorTopBar = [UIColor redColor];
+//    self.calendar.colorNavigatorPrevMonth = [UIColor greenColor];
+//    self.calendar.colorNavigatorNextMonth = [UIColor magentaColor];
+    self.calendar.lengthRenew = 10.f;
     
 //    self.view.backgroundColor = [UIColor blackColor];
 }
@@ -51,7 +52,7 @@
 }
 - (IBAction)tapShow:(id)sender {
     
-    [self.calndar show];
+    [self.calendar show];
     
 }
 
@@ -64,6 +65,21 @@
 {
     // とりあえずの返し
     return ([dateComponents day] % 6 == 0);
+}
+- (UIView *)accentStrongDayWithDateComponents:(NSDateComponents *)dateComponents cellSize:(CGSize)size
+{
+    if ([dateComponents day] % 5 != 0) {
+        return nil;
+    }
+    
+    UILabel* accent = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height - 20, size.width, 20)];
+    accent.text = @"★";
+    accent.font = [UIFont systemFontOfSize:12.f];
+    accent.adjustsFontSizeToFitWidth = YES;
+    accent.backgroundColor = [UIColor clearColor];
+    accent.textColor = [UIColor purpleColor];
+    accent.textAlignment = NSTextAlignmentRight;
+    return accent;
 }
 
 - (void)willRenewCalendarWithNewDate:(NSDate *)newDate

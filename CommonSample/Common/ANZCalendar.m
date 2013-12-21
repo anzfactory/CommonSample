@@ -205,10 +205,16 @@ static NSString* _sectionID = @"sectionID";
     ANZCalendarCell* cell = [self dequeueReusableCellWithReuseIdentifier:_cellID forIndexPath:indexPath];
     ANZCalendarDataObject* dataObj = ((ANZCalendarDataObject *)self.ds[indexPath.item]);
     
-    if ([_anzDelegate respondsToSelector:@selector(isStrongDayWithDateComponents:)]) {
-        dataObj.isStrong = [_anzDelegate isStrongDayWithDateComponents:dataObj.components];
+    if ([self.anzDelegate respondsToSelector:@selector(isStrongDayWithDateComponents:)]) {
+        dataObj.isStrong = [self.anzDelegate isStrongDayWithDateComponents:dataObj.components];
     } else {
         dataObj.isStrong = NO;
+    }
+    
+    if ([self.anzDelegate respondsToSelector:@selector(accentStrongDayWithDateComponents:cellSize:)]) {
+        dataObj.accentView = [self.anzDelegate accentStrongDayWithDateComponents:dataObj.components cellSize:((UICollectionViewFlowLayout *)self.collectionViewLayout).itemSize];
+    } else {
+        dataObj.accentView = nil;
     }
     
     dataObj.attributesWeekday = self.attributesWeekday;

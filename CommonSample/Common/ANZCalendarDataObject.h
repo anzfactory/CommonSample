@@ -16,6 +16,7 @@
 @property (nonatomic) BOOL isFirstWeek;
 @property (nonatomic) BOOL isLastWeek;
 @property (nonatomic) BOOL isStrong;
+@property (nonatomic) UIView* accentView;
 
 @property (nonatomic) UIColor* colorWeekDay;
 @property (nonatomic) UIColor* colorSaturday;

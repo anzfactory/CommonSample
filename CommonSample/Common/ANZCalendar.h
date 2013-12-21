@@ -21,6 +21,7 @@
 
 // 強調する日付かどうか(何か該当するデータがある日なのか？…とか)
 - (BOOL)isStrongDayWithDateComponents:(NSDateComponents *)dateComponents;
+- (UIView *)accentStrongDayWithDateComponents:(NSDateComponents *)dateComponents cellSize:(CGSize)size;
 
 // 表示年月が変更される直前に呼び出す。呼び出し側で表示年月と合わせてデータ保持を切り替えたい時なんかに
 - (void)willRenewCalendarWithNewDate:(NSDate *)newDate;

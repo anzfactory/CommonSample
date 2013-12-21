@@ -8,6 +8,10 @@
 
 #import "ANZCalendarCell.h"
 
+typedef enum {
+    AnzCalendarCellTagAccent = 100
+} ANZCalendarCellTag;
+
 @interface ANZCalendarCell() {
     UIBezierPath* _bezier;
 }
@@ -53,6 +57,14 @@
     _data = data;
     NSString* dayString = [NSString stringWithFormat:@"%d", [_data.components day]];
     NSDictionary* dayAttributes;
+    
+    UIView* accent = [self viewWithTag:AnzCalendarCellTagAccent];
+    [accent removeFromSuperview];
+    
+    if (data.accentView) {
+        data.accentView.tag = AnzCalendarCellTagAccent;
+        [self addSubview:data.accentView];
+    }
     
     if ([data.components weekday] == 1) {   // 日曜
         if (data.isStrong) {
