@@ -261,7 +261,7 @@
 				A10396531863576900ABFD31 /* ANZCalendarNavigator.h */,
 				A10396541863576900ABFD31 /* ANZCalendarNavigator.m */,
 			);
-			name = ANZCalendar;
+			path = ANZCalendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
