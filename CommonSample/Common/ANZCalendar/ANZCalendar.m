@@ -39,6 +39,7 @@ typedef enum {
 
 static NSString* _cellID = @"cellID";
 static NSString* _sectionID = @"sectionID";
+static UIView* _coverView = nil;
 
 + (UICollectionViewFlowLayout *)flowLayout
 {
@@ -280,24 +281,15 @@ static NSString* _sectionID = @"sectionID";
     }
     
     // 過去に追加したやつがいないかチェク
-    BOOL through = NO;
     for (UIView* child in [_parentWindow.subviews reverseObjectEnumerator]) {
         
         // 自分自身がすでに表示されている場合はスルーさせる
-        if ([child isEqual:self]) {
-            through = YES;
-            continue;
-        }
-        
-        // 自分自身以外でどうクラスのインスタンスがあれば消す
-        if ([child isKindOfClass:[self class]]) {
-            [child removeFromSuperview];
+        if ([child isEqual:_coverView]) {
+            return;
         }
     }
-    
-    if (through) {
-        return;
-    }
+    _coverView = [[UIView alloc] initWithFrame:_parentWindow.frame];
+    _coverView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
     
     // サイズ・表示位置調整
     // collectionViewContentSizeでcontentsizeが取れるのでそこらへんを考慮して自動的にピッタリのサイズにする
@@ -305,7 +297,8 @@ static NSString* _sectionID = @"sectionID";
     self.frame = CGRectMake(self.frame.origin.x, _parentWindow.frame.size.height, self.frame.size.width, contentSize.height);
     
     // 表示
-    [_parentWindow addSubview:self];
+    [_coverView addSubview:self];
+    [_parentWindow addSubview:_coverView];
     
     [UIView animateWithDuration:.5f animations:^{
         self.transform = CGAffineTransformMakeTranslation(0, self.frame.size.height * -1);
@@ -324,6 +317,7 @@ static NSString* _sectionID = @"sectionID";
         self.frame = CGRectMake(0, _parentWindow.frame.size.height, self.frame.size.width, self.frame.size.height);
         self.transform = CGAffineTransformIdentity;
         [self removeFromSuperview];
+        [_coverView removeFromSuperview];
         
         if ([self.anzDelegate respondsToSelector:@selector(dismissAfter)]) {
             [self.anzDelegate dismissAfter];
