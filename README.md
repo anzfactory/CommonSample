@@ -12,4 +12,7 @@ Webとかでよくみるドロップダウンリスト形式のもの
 ## ANZCalendar
 
 UICollectionViewをベースにしてのカレンダー  
-まだまだ途中…ちまちまつくりちゅう。。。
+とりあえず、一段落。
+
+[詳細はQiitaにかいちゃった](http://qiita.com/AnzNetJp/items/5f46b0f4a4432eed2735)
+
