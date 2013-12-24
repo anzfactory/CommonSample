@@ -54,6 +54,99 @@ static UIView* _coverView = nil;
     return layout;
 }
 
+- (id)initWithDisplayDate:(NSDate *)displayDate
+{
+    // contentViewを正しく計算させるためにとりあえず幅だけは指定しておく
+    if (self == [super initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 0) collectionViewLayout:[ANZCalendar flowLayout]]) {
+        _displayDate = displayDate;
+        [self create];
+    }
+    return self;
+}
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.ds count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ANZCalendarCell* cell = [self dequeueReusableCellWithReuseIdentifier:_cellID forIndexPath:indexPath];
+    ANZCalendarDataObject* dataObj = ((ANZCalendarDataObject *)self.ds[indexPath.item]);
+    
+    if ([self.anzDelegate respondsToSelector:@selector(isStrongDayWithDateComponents:)]) {
+        dataObj.isStrong = [self.anzDelegate isStrongDayWithDateComponents:dataObj.components];
+    } else {
+        dataObj.isStrong = NO;
+    }
+    
+    if ([self.anzDelegate respondsToSelector:@selector(accentStrongDayWithDateComponents:cellSize:)]) {
+        dataObj.accentView = [self.anzDelegate accentStrongDayWithDateComponents:dataObj.components cellSize:((UICollectionViewFlowLayout *)self.collectionViewLayout).itemSize];
+    } else {
+        dataObj.accentView = nil;
+    }
+    
+    dataObj.attributesWeekday = self.attributesWeekday;
+    dataObj.attributesSaturday = self.attributesSaturday;
+    dataObj.attributesSunday = self.attributesSunday;
+    dataObj.attributesOutsideWeekday = self.attributesOutsideWeekday;
+    dataObj.attributesOutsideSaturday = self.attributesOutsideSaturday;
+    dataObj.attributesOutsideSunday = self.attributesOutsideSunday;
+    dataObj.attributesStrongWeekday = self.attributesStrongWeekday;
+    dataObj.attributesStrongSaturday = self.attributesStrongSaturday;
+    dataObj.attributesStrongSunday = self.attributesStrongSunday;
+    
+    cell.data = dataObj;
+    cell.lineColor = self.colorLine;
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    // この一文がないと、月に表示する日数が変わる(行数が減る)場合に落ちる
+    [self.collectionViewLayout invalidateLayout];
+    return 1;
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        ANZCalendarMenuBar* section = (ANZCalendarMenuBar *)[self dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:_sectionID forIndexPath:indexPath];
+        NSDateFormatter* formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"yyyy/MM"];
+        section.attributeClose = [[NSAttributedString alloc] initWithString:@"Close" attributes:self.attributesClose];
+        section.attributeTitle = [[NSAttributedString alloc] initWithString:[formatter stringFromDate:self.displayDate ] attributes:self.attributesDisplayDate];
+        section.backgroundColor = self.colorTopBar;
+        return section;
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (! [self.anzDelegate respondsToSelector:@selector(didSelectDay:)]) {
+        return;
+    }
+    
+    ANZCalendarDataObject* dataObj = (ANZCalendarDataObject *)self.ds[indexPath.item];
+    [self.anzDelegate didSelectDay:dataObj.components];
+    
+    [self dismiss];
+}
+
+#pragma mark - UICollectionView Methods Override
+- (void)setDelegate:(id<UICollectionViewDelegate, ANZCalendarDelegate>)delegate
+{
+    if (self == delegate) {
+        [super setDelegate:delegate];    // こっちは内部用
+    } else {
+        _anzDelegate = delegate;         // こっちは呼び出し側用
+    }
+}
+
 - (void)reloadData
 {
     [super reloadData];
@@ -64,6 +157,80 @@ static UIView* _coverView = nil;
 
 }
 
+- (void)reloadSections:(NSIndexSet *)sections
+{
+    [super reloadSections:sections];
+    
+    CGSize contentSize = [self.collectionViewLayout collectionViewContentSize];
+    CGFloat diff = self.frame.size.height - contentSize.height;
+    
+    [UIView animateWithDuration:.1f animations:^{
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + diff,self.frame.size.width,contentSize.height);
+    } completion:^(BOOL finished) {
+        [self.prevBackgroundView updateLabeWithDisplayDate:self.displayDate attributes:self.attributesNavigatorPrev];
+        [self.nextBackgroundView updateLabeWithDisplayDate:self.displayDate attributes:self.attributesNavigatorNext];
+    }];
+}
+
+#pragma mark - UIScrolViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.prevBackgroundView.frame = CGRectMake(self.prevBackgroundView.frame.origin.x, self.prevBackgroundView.frame.origin.y, self.prevBackgroundView.frame.size.width, self.frame.size.height);
+    self.prevBackgroundView.backgroundColor = self.colorNavigatorPrevMonth;
+    self.nextBackgroundView.frame = CGRectMake(self.nextBackgroundView.frame.origin.x, self.nextBackgroundView.frame.origin.y, self.nextBackgroundView.frame.size.width, self.frame.size.height);
+    self.nextBackgroundView.backgroundColor = self.colorNavigatorNextMonth;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint offset = scrollView.contentOffset;
+    if (scrollView.contentOffset.x > 0) {
+        self.nextBackgroundView.frame = CGRectMake(self.nextBackgroundView.frame.origin.x,
+                                                   self.nextBackgroundView.frame.origin.y,
+                                                   offset.x,
+                                                   self.nextBackgroundView.frame.size.height);
+    } else if (scrollView.contentOffset.x < 0) {
+        self.prevBackgroundView.frame = CGRectMake(offset.x,
+                                                   self.prevBackgroundView.frame.origin.y,
+                                                   offset.x * -1,
+                                                   self.prevBackgroundView.frame.size.height);
+    } else {
+        
+    }
+}
+
+//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+//{
+//    NSLog(@"scrollViewWillEndDragging");
+//}
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//    NSLog(@"scrollViewDidEndDragging");
+//}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;
+{
+    if (fabsf(scrollView.contentOffset.x) > self.lengthRenew) {
+        if (scrollView.contentOffset.x > 0) {
+            _renewType = ANZCalendarRenewNext;
+        } else {
+            _renewType = ANZCalendarRenewPrev;
+        }
+    } else {
+        _renewType = ANZCalendarRenewNone;
+        return;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+{
+    
+    if (scrollView.contentOffset.x == 0) {
+        [self renewCalendar];
+    }
+}
+
+#pragma mark - methods
 - (void)create
 {
     _calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -196,76 +363,6 @@ static UIView* _coverView = nil;
     return result;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [self.ds count];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    ANZCalendarCell* cell = [self dequeueReusableCellWithReuseIdentifier:_cellID forIndexPath:indexPath];
-    ANZCalendarDataObject* dataObj = ((ANZCalendarDataObject *)self.ds[indexPath.item]);
-    
-    if ([self.anzDelegate respondsToSelector:@selector(isStrongDayWithDateComponents:)]) {
-        dataObj.isStrong = [self.anzDelegate isStrongDayWithDateComponents:dataObj.components];
-    } else {
-        dataObj.isStrong = NO;
-    }
-    
-    if ([self.anzDelegate respondsToSelector:@selector(accentStrongDayWithDateComponents:cellSize:)]) {
-        dataObj.accentView = [self.anzDelegate accentStrongDayWithDateComponents:dataObj.components cellSize:((UICollectionViewFlowLayout *)self.collectionViewLayout).itemSize];
-    } else {
-        dataObj.accentView = nil;
-    }
-    
-    dataObj.attributesWeekday = self.attributesWeekday;
-    dataObj.attributesSaturday = self.attributesSaturday;
-    dataObj.attributesSunday = self.attributesSunday;
-    dataObj.attributesOutsideWeekday = self.attributesOutsideWeekday;
-    dataObj.attributesOutsideSaturday = self.attributesOutsideSaturday;
-    dataObj.attributesOutsideSunday = self.attributesOutsideSunday;
-    dataObj.attributesStrongWeekday = self.attributesStrongWeekday;
-    dataObj.attributesStrongSaturday = self.attributesStrongSaturday;
-    dataObj.attributesStrongSunday = self.attributesStrongSunday;
-    
-    cell.data = dataObj;
-    cell.lineColor = self.colorLine;
-    return cell;
-}
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    // この一文がないと、月に表示する日数が変わる(行数が減る)場合に落ちる
-    [self.collectionViewLayout invalidateLayout];
-    return 1;
-}
-
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        ANZCalendarMenuBar* section = (ANZCalendarMenuBar *)[self dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:_sectionID forIndexPath:indexPath];
-        NSDateFormatter* formatter = [NSDateFormatter new];
-        [formatter setDateFormat:@"yyyy/MM"];
-        section.attributeClose = [[NSAttributedString alloc] initWithString:@"Close" attributes:self.attributesClose];
-        section.attributeTitle = [[NSAttributedString alloc] initWithString:[formatter stringFromDate:self.displayDate ] attributes:self.attributesDisplayDate];
-        section.backgroundColor = self.colorTopBar;
-        return section;
-    } else {
-        return nil;
-    }
-}
-
-- (id)initWithDisplayDate:(NSDate *)displayDate
-{
-    // contentViewを正しく計算させるためにとりあえず幅だけは指定しておく
-    if (self == [super initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 0) collectionViewLayout:[ANZCalendar flowLayout]]) {
-        _displayDate = displayDate;
-        [self create];
-    }
-    return self;
-}
-
 - (void)show
 {
     // 表示するカレンダーデータの作成
@@ -325,63 +422,6 @@ static UIView* _coverView = nil;
     }];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    self.prevBackgroundView.frame = CGRectMake(self.prevBackgroundView.frame.origin.x, self.prevBackgroundView.frame.origin.y, self.prevBackgroundView.frame.size.width, self.frame.size.height);
-    self.prevBackgroundView.backgroundColor = self.colorNavigatorPrevMonth;
-    self.nextBackgroundView.frame = CGRectMake(self.nextBackgroundView.frame.origin.x, self.nextBackgroundView.frame.origin.y, self.nextBackgroundView.frame.size.width, self.frame.size.height);
-    self.nextBackgroundView.backgroundColor = self.colorNavigatorNextMonth;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGPoint offset = scrollView.contentOffset;
-    if (scrollView.contentOffset.x > 0) {
-        self.nextBackgroundView.frame = CGRectMake(self.nextBackgroundView.frame.origin.x,
-                                                   self.nextBackgroundView.frame.origin.y,
-                                                   offset.x,
-                                                   self.nextBackgroundView.frame.size.height);
-    } else if (scrollView.contentOffset.x < 0) {
-        self.prevBackgroundView.frame = CGRectMake(offset.x,
-                                                   self.prevBackgroundView.frame.origin.y,
-                                                   offset.x * -1,
-                                                   self.prevBackgroundView.frame.size.height);
-    } else {
-        
-    }
-}
-
-//- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-//{
-//    NSLog(@"scrollViewWillEndDragging");
-//}
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//    NSLog(@"scrollViewDidEndDragging");
-//}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView;
-{
-    if (fabsf(scrollView.contentOffset.x) > self.lengthRenew) {
-        if (scrollView.contentOffset.x > 0) {
-            _renewType = ANZCalendarRenewNext;
-        } else {
-            _renewType = ANZCalendarRenewPrev;
-        }
-    } else {
-        _renewType = ANZCalendarRenewNone;
-        return;
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
-{
-    
-    if (scrollView.contentOffset.x == 0) {
-        [self renewCalendar];
-    }
-}
-
 - (void)renewCalendar
 {
     if (_renewType == ANZCalendarRenewNone) {
@@ -401,42 +441,6 @@ static UIView* _coverView = nil;
 
     [self reloadSections:[NSIndexSet indexSetWithIndex:0]];
 
-}
-
-- (void)reloadSections:(NSIndexSet *)sections
-{
-    [super reloadSections:sections];
-    
-    CGSize contentSize = [self.collectionViewLayout collectionViewContentSize];
-    CGFloat diff = self.frame.size.height - contentSize.height;
-    
-    [UIView animateWithDuration:.1f animations:^{
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y + diff,self.frame.size.width,contentSize.height);
-    } completion:^(BOOL finished) {
-        [self.prevBackgroundView updateLabeWithDisplayDate:self.displayDate attributes:self.attributesNavigatorPrev];
-        [self.nextBackgroundView updateLabeWithDisplayDate:self.displayDate attributes:self.attributesNavigatorNext];
-    }];
-}
-
-- (void)setDelegate:(id<UICollectionViewDelegate, ANZCalendarDelegate>)delegate
-{
-    if (self == delegate) {
-        [super setDelegate:delegate];    // こっちは内部用
-    } else {
-        _anzDelegate = delegate;         // こっちは呼び出し側用
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (! [self.anzDelegate respondsToSelector:@selector(didSelectDay:)]) {
-        return;
-    }
-    
-    ANZCalendarDataObject* dataObj = (ANZCalendarDataObject *)self.ds[indexPath.item];
-    [self.anzDelegate didSelectDay:dataObj.components];
-    
-    [self dismiss];
 }
 
 @end
