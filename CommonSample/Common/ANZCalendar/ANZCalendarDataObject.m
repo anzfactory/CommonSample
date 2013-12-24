@@ -16,7 +16,7 @@
         return @"";
     }
     
-    return [NSString stringWithFormat:@"%d", [self.components day]];
+    return [NSString stringWithFormat:@"%ld", [self.components day]];
 }
 
 @end

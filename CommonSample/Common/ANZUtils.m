@@ -36,7 +36,7 @@
     NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
                                                fromDate:date];
     
-    return [NSString stringWithFormat:@"%d/%d/%d", [components year], [components month], [components day]];
+    return [NSString stringWithFormat:@"%ld/%ld/%ld", [components year], [components month], [components day]];
 
 }
 

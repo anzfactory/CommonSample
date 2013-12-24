@@ -55,7 +55,7 @@ typedef enum {
 - (void)setData:(ANZCalendarDataObject *)data
 {
     _data = data;
-    NSString* dayString = [NSString stringWithFormat:@"%d", [_data.components day]];
+    NSString* dayString = [NSString stringWithFormat:@"%ld", [_data.components day]];
     NSDictionary* dayAttributes;
     
     UIView* accent = [self viewWithTag:AnzCalendarCellTagAccent];

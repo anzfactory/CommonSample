@@ -102,7 +102,7 @@
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
     if (self.lblYear) {
-        self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", [components year]] attributes:attributes];
+        self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
     } else {
         NSString* month;
         switch ([components month]) {
