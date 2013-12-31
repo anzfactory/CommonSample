@@ -60,8 +60,12 @@
     self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
-- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes
-{
+- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes {
+    NSString *displayText = [self displayTextForDate:displayDate];
+    self.lbl.attributedText = [[NSAttributedString alloc] initWithString:displayText attributes:attributes];
+}
+
+- (NSString *)displayTextForDate:(NSDate *)date {
     NSDateComponents* components = [NSDateComponents new];
     NSTimeZone* tz = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
     [components setTimeZone:tz];
@@ -69,7 +73,7 @@
         case ANZCalendarNavigatorTypePrevYear:
             [components setYear: -1];
             break;
-           
+            
         case ANZCalendarNavigatorTypeNextYear:
             [components setYear: 1];
             break;
@@ -84,11 +88,10 @@
     }
     
     NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate* targetDate = [calendar dateByAddingComponents:components toDate:displayDate options:0];
+    NSDate* targetDate = [calendar dateByAddingComponents:components toDate:date options:0];
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
-    NSString *displayText = [self textForComponents:components];
-    self.lbl.attributedText = [[NSAttributedString alloc] initWithString:displayText attributes:attributes];
+    return [self textForComponents:components];
 }
 
 - (NSString *)textForComponents:(NSDateComponents *)components {
