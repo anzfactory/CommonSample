@@ -58,34 +58,8 @@ typedef enum {
     _data = data;
     [self resetAssent:_data];
     
-    NSString* dayString = [NSString stringWithFormat:@"%ld", [_data.components day]];
-    NSDictionary* dayAttributes;
-    
-    if ([data.components weekday] == 1) {   // 日曜
-        if (data.isStrong) {
-            dayAttributes = data.attributesStrongSunday;
-        } else if (data.isCurrentMonth) {
-            dayAttributes = data.attributesSunday;
-        } else {
-            dayAttributes = data.attributesOutsideSunday;
-        }
-    } else if ([data.components weekday] == 7) {    // 土曜
-        if (data.isStrong) {
-            dayAttributes = data.attributesStrongSaturday;
-        } else if (data.isCurrentMonth) {
-            dayAttributes = data.attributesSaturday;
-        } else {
-            dayAttributes = data.attributesOutsideSaturday;
-        }
-    } else {
-        if (data.isStrong) {
-            dayAttributes = data.attributesStrongSunday;
-        } else if (data.isCurrentMonth) {
-            dayAttributes = data.attributesWeekday;
-        } else {
-            dayAttributes = data.attributesOutsideWeekday;
-        }
-    }
+    NSString* dayString = [data text];
+    NSDictionary* dayAttributes = [data attributes];
     self.lblDay.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.lblDay.backgroundColor = dayAttributes[NSBackgroundColorAttributeName];
     self.lblDay.attributedText = [[NSAttributedString alloc] initWithString:dayString attributes:dayAttributes];

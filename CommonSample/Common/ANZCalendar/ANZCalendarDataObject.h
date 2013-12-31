@@ -34,5 +34,6 @@
 @property (nonatomic) NSDictionary* attributesStrongSaturday;
 @property (nonatomic) NSDictionary* attributesStrongSunday;
 
+- (NSDictionary *)attributes;
 
 @end
