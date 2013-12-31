@@ -66,6 +66,11 @@
 }
 
 - (NSString *)displayTextForDate:(NSDate *)date {
+    NSDateComponents *components = [self componentsForDate:date];
+    return [self textForComponents:components];
+}
+
+- (NSDateComponents *)componentsForDate:(NSDate *)date {
     NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:date];
     switch (self.navigationType) {
@@ -85,8 +90,7 @@
             components.month += 1;
             break;
     }
-    
-    return [self textForComponents:components];
+    return components;
 }
 
 - (NSString *)textForComponents:(NSDateComponents *)components {
