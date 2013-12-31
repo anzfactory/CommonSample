@@ -26,19 +26,15 @@
     if (self = [super initWithFrame:frame]) {
         _navigationType = navigationType;
         
+        _lbl= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         if ([self isTypeYear]) {
-            _lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
             _lbl.adjustsFontSizeToFitWidth = YES;
-            _lbl.textAlignment = NSTextAlignmentCenter;
-            _lbl.backgroundColor = [UIColor clearColor];
-            [self addSubview:_lbl];
         } else {
-            _lbl= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
             _lbl.numberOfLines = 3;
-            _lbl.textAlignment = NSTextAlignmentCenter;
-            _lbl.backgroundColor = [UIColor clearColor];
-            [self addSubview:_lbl];
         }
+        _lbl.textAlignment = NSTextAlignmentCenter;
+        _lbl.backgroundColor = [UIColor clearColor];
+        [self addSubview:_lbl];
     }
     return self;
 }
