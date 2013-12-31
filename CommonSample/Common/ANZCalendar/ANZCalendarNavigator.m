@@ -88,61 +88,41 @@
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
     if ([self isTypeYear]) {
-        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
+        NSString *year = [NSString stringWithFormat:@"%d", [components year]];
+        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:year attributes:attributes];
     } else {
-        NSString* month;
-        switch ([components month]) {
-            case 1:
-                month =@"J\nA\nN";
-                break;
-            
-            case 2:
-                month = @"F\nE\nB";
-                break;
-                
-            case 3:
-                month = @"M\nA\nR";
-                break;
-                
-            case 4:
-                month = @"A\nP\nR";
-                break;
-                
-            case 5:
-                month = @"M\nA\nY";
-                break;
-                
-            case 6:
-                month = @"J\nU\nN";
-                break;
-                
-            case 7:
-                month = @"J\nU\nL";
-                break;
-                
-            case 8:
-                month = @"A\nU\nG";
-                break;
-                
-            case 9:
-                month = @"S\nE\nP";
-                break;
-                
-            case 10:
-                month = @"O\nC\nT";
-                break;
-                
-            case 11:
-                month = @"N\nO\nV";
-                break;
-                
-            case 12:
-            default:
-                month = @"D\nE\nC";
-                break;
-        }
-        
+        NSString* month = [self monthStringForInteger:[components month]];
         self.lbl.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
+    }
+}
+
+- (NSString *)monthStringForInteger:(NSInteger)month {
+    switch (month) {
+        case 1:
+            return @"J\nA\nN";
+        case 2:
+            return @"F\nE\nB";
+        case 3:
+            return @"M\nA\nR";
+        case 4:
+            return @"A\nP\nR";
+        case 5:
+            return @"M\nA\nY";
+        case 6:
+            return @"J\nU\nN";
+        case 7:
+            return @"J\nU\nL";
+        case 8:
+            return @"A\nU\nG";
+        case 9:
+            return @"S\nE\nP";
+        case 10:
+            return @"O\nC\nT";
+        case 11:
+            return  @"N\nO\nV";
+        case 12:
+        default:
+            return @"D\nE\nC";
     }
 }
 
