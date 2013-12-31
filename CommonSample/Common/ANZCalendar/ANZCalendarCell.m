@@ -57,12 +57,7 @@ typedef enum {
 {
     _data = data;
     [self resetAssent:_data];
-    
-    NSString* dayString = [data text];
-    NSDictionary* dayAttributes = [data attributes];
-    self.lblDay.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    self.lblDay.backgroundColor = dayAttributes[NSBackgroundColorAttributeName];
-    self.lblDay.attributedText = [[NSAttributedString alloc] initWithString:dayString attributes:dayAttributes];
+    [self resetLabel:_data];
 }
 
 - (void)resetAssent:(ANZCalendarDataObject *)data {
@@ -75,6 +70,14 @@ typedef enum {
         _accent.tag = AnzCalendarCellTagAccent;
         [self addSubview:_accent];
     }
+}
+- (void)resetLabel:(ANZCalendarDataObject *)dataObject {
+    NSString* dayString = [dataObject text];
+    NSDictionary* dayAttributes = [dataObject attributes];
+    
+    self.lblDay.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    self.lblDay.backgroundColor = dayAttributes[NSBackgroundColorAttributeName];
+    self.lblDay.attributedText = [[NSAttributedString alloc] initWithString:dayString attributes:dayAttributes];
 }
 
 @end
