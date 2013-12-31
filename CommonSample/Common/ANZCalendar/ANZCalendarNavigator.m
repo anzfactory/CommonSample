@@ -28,25 +28,20 @@
     if (self = [super initWithFrame:frame]) {
         _navigationType = navigationType;
         
-        switch (_navigationType) {
-            case ANZCalendarNavigatorTypePrevYear:
-            case ANZCalendarNavigatorTypeNextYear:
-                _lblMonth = nil;
-                _lblYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-                _lblYear.adjustsFontSizeToFitWidth = YES;
-                _lblYear.textAlignment = NSTextAlignmentCenter;
-                _lblYear.backgroundColor = [UIColor clearColor];
-                [self addSubview:_lblYear];
-                break;
-                
-            default:
-                _lblYear = nil;
-                _lblMonth= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-                _lblMonth.numberOfLines = 3;
-                _lblMonth.textAlignment = NSTextAlignmentCenter;
-                _lblMonth.backgroundColor = [UIColor clearColor];
-                [self addSubview:_lblMonth];
-                break;
+        if ([self isTypeYear]) {
+            _lblMonth = nil;
+            _lblYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            _lblYear.adjustsFontSizeToFitWidth = YES;
+            _lblYear.textAlignment = NSTextAlignmentCenter;
+            _lblYear.backgroundColor = [UIColor clearColor];
+            [self addSubview:_lblYear];
+        } else {
+            _lblYear = nil;
+            _lblMonth= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            _lblMonth.numberOfLines = 3;
+            _lblMonth.textAlignment = NSTextAlignmentCenter;
+            _lblMonth.backgroundColor = [UIColor clearColor];
+            [self addSubview:_lblMonth];
         }
     }
     return self;
@@ -64,17 +59,11 @@
     
 }
 
-- (void)adjustNavigatorLabel
-{
-    switch (_navigationType) {
-        case ANZCalendarNavigatorTypePrevYear:
-        case ANZCalendarNavigatorTypeNextYear:
-            self.lblYear.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-            break;
-            
-        default:
-            self.lblMonth.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-            break;
+- (void)adjustNavigatorLabel {
+    if ([self isTypeYear]) {
+        self.lblYear.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    } else {
+        self.lblMonth.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     }
 }
 
@@ -105,7 +94,7 @@
     NSDate* targetDate = [calendar dateByAddingComponents:components toDate:displayDate options:0];
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
-    if (self.lblYear) {
+    if ([self isTypeYear]) {
         self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
     } else {
         NSString* month;
