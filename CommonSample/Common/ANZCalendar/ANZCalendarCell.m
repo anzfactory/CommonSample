@@ -14,6 +14,7 @@ typedef enum {
 
 @interface ANZCalendarCell() {
     UIBezierPath* _bezier;
+    UIView *_accent;
 }
 
 @property (nonatomic) UILabel* lblDay;
@@ -55,16 +56,10 @@ typedef enum {
 - (void)setData:(ANZCalendarDataObject *)data
 {
     _data = data;
+    [self resetAssent:_data];
+    
     NSString* dayString = [NSString stringWithFormat:@"%ld", [_data.components day]];
     NSDictionary* dayAttributes;
-    
-    UIView* accent = [self viewWithTag:AnzCalendarCellTagAccent];
-    [accent removeFromSuperview];
-    
-    if (data.accentView) {
-        data.accentView.tag = AnzCalendarCellTagAccent;
-        [self addSubview:data.accentView];
-    }
     
     if ([data.components weekday] == 1) {   // 日曜
         if (data.isStrong) {
@@ -94,6 +89,18 @@ typedef enum {
     self.lblDay.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     self.lblDay.backgroundColor = dayAttributes[NSBackgroundColorAttributeName];
     self.lblDay.attributedText = [[NSAttributedString alloc] initWithString:dayString attributes:dayAttributes];
+}
+
+- (void)resetAssent:(ANZCalendarDataObject *)data {
+    if (_accent) {
+        [_accent removeFromSuperview];
+    }
+    
+    if (data.accentView) {
+        _accent = data.accentView;
+        _accent.tag = AnzCalendarCellTagAccent;
+        [self addSubview:_accent];
+    }
 }
 
 @end
