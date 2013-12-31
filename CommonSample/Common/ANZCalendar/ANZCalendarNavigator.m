@@ -52,6 +52,10 @@
     return self;
 }
 
+- (BOOL)isTypeYear {
+    return _navigationType == ANZCalendarNavigatorTypePrevYear || _navigationType == ANZCalendarNavigatorTypeNextYear;
+}
+
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
