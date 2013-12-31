@@ -87,12 +87,15 @@
     NSDate* targetDate = [calendar dateByAddingComponents:components toDate:displayDate options:0];
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
+    NSString *displayText = [self textForComponents:components];
+    self.lbl.attributedText = [[NSAttributedString alloc] initWithString:displayText attributes:attributes];
+}
+
+- (NSString *)textForComponents:(NSDateComponents *)components {
     if ([self isTypeYear]) {
-        NSString *year = [NSString stringWithFormat:@"%d", [components year]];
-        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:year attributes:attributes];
+        return [NSString stringWithFormat:@"%d", [components year]];
     } else {
-        NSString* month = [self monthStringForInteger:[components month]];
-        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
+        return [self monthStringForInteger:[components month]];
     }
 }
 
