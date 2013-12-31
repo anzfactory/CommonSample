@@ -57,11 +57,7 @@
 }
 
 - (void)adjustNavigatorLabel {
-    if ([self isTypeYear]) {
-        self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    } else {
-        self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    }
+    self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes
