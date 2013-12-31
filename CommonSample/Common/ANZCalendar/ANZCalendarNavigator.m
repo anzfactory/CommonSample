@@ -10,9 +10,7 @@
 
 @interface ANZCalendarNavigator()
 
-@property (nonatomic) UILabel* lblYear;
-
-@property (nonatomic) UILabel* lblMonth;
+@property (nonatomic) UILabel* lbl;
 
 @end
 
@@ -29,19 +27,17 @@
         _navigationType = navigationType;
         
         if ([self isTypeYear]) {
-            _lblMonth = nil;
-            _lblYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-            _lblYear.adjustsFontSizeToFitWidth = YES;
-            _lblYear.textAlignment = NSTextAlignmentCenter;
-            _lblYear.backgroundColor = [UIColor clearColor];
-            [self addSubview:_lblYear];
+            _lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            _lbl.adjustsFontSizeToFitWidth = YES;
+            _lbl.textAlignment = NSTextAlignmentCenter;
+            _lbl.backgroundColor = [UIColor clearColor];
+            [self addSubview:_lbl];
         } else {
-            _lblYear = nil;
-            _lblMonth= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-            _lblMonth.numberOfLines = 3;
-            _lblMonth.textAlignment = NSTextAlignmentCenter;
-            _lblMonth.backgroundColor = [UIColor clearColor];
-            [self addSubview:_lblMonth];
+            _lbl= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+            _lbl.numberOfLines = 3;
+            _lbl.textAlignment = NSTextAlignmentCenter;
+            _lbl.backgroundColor = [UIColor clearColor];
+            [self addSubview:_lbl];
         }
     }
     return self;
@@ -61,9 +57,9 @@
 
 - (void)adjustNavigatorLabel {
     if ([self isTypeYear]) {
-        self.lblYear.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     } else {
-        self.lblMonth.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     }
 }
 
@@ -95,7 +91,7 @@
     components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
     if ([self isTypeYear]) {
-        self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
+        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
     } else {
         NSString* month;
         switch ([components month]) {
@@ -149,7 +145,7 @@
                 break;
         }
         
-        self.lblMonth.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
+        self.lbl.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
     }
 }
 
