@@ -66,30 +66,25 @@
 }
 
 - (NSString *)displayTextForDate:(NSDate *)date {
-    NSDateComponents* components = [NSDateComponents new];
-    NSTimeZone* tz = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    [components setTimeZone:tz];
+    NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:date];
     switch (self.navigationType) {
         case ANZCalendarNavigatorTypePrevYear:
-            [components setYear: -1];
+            components.year += -1;
             break;
             
         case ANZCalendarNavigatorTypeNextYear:
-            [components setYear: 1];
+            components.year = 1;
             break;
             
         case ANZCalendarNavigatorTypePrevMonth:
-            [components setMonth: -1];
+            components.month += -1;
             break;
             
         default:
-            [components setMonth: 1];
+            components.month += 1;
             break;
     }
-    
-    NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate* targetDate = [calendar dateByAddingComponents:components toDate:date options:0];
-    components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
     
     return [self textForComponents:components];
 }
@@ -105,6 +100,7 @@
 - (NSString *)monthStringForInteger:(NSInteger)month {
     switch (month) {
         case 1:
+        case 13:
             return @"J\nA\nN";
         case 2:
             return @"F\nE\nB";
@@ -127,6 +123,7 @@
         case 11:
             return  @"N\nO\nV";
         case 12:
+        case 0:
         default:
             return @"D\nE\nC";
     }
