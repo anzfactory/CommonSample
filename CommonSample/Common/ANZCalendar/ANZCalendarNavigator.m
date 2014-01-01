@@ -10,9 +10,7 @@
 
 @interface ANZCalendarNavigator()
 
-@property (nonatomic) UILabel* lblYear;
-
-@property (nonatomic) UILabel* lblMonth;
+@property (nonatomic) UILabel* lbl;
 
 @end
 
@@ -28,28 +26,26 @@
     if (self = [super initWithFrame:frame]) {
         _navigationType = navigationType;
         
-        switch (_navigationType) {
-            case ANZCalendarNavigatorTypePrevYear:
-            case ANZCalendarNavigatorTypeNextYear:
-                _lblMonth = nil;
-                _lblYear = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-                _lblYear.adjustsFontSizeToFitWidth = YES;
-                _lblYear.textAlignment = NSTextAlignmentCenter;
-                _lblYear.backgroundColor = [UIColor clearColor];
-                [self addSubview:_lblYear];
-                break;
-                
-            default:
-                _lblYear = nil;
-                _lblMonth= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-                _lblMonth.numberOfLines = 3;
-                _lblMonth.textAlignment = NSTextAlignmentCenter;
-                _lblMonth.backgroundColor = [UIColor clearColor];
-                [self addSubview:_lblMonth];
-                break;
-        }
+        _lbl = [self createLabel];
+        [self addSubview:_lbl];
     }
     return self;
+}
+
+- (UILabel *)createLabel {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    if ([self isTypeYear]) {
+        label.adjustsFontSizeToFitWidth = YES;
+    } else {
+        label.numberOfLines = 3;
+    }
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    return label;
+}
+
+- (BOOL)isTypeYear {
+    return _navigationType == ANZCalendarNavigatorTypePrevYear || _navigationType == ANZCalendarNavigatorTypeNextYear;
 }
 
 - (void)setFrame:(CGRect)frame
@@ -60,103 +56,80 @@
     
 }
 
-- (void)adjustNavigatorLabel
-{
-    switch (_navigationType) {
-        case ANZCalendarNavigatorTypePrevYear:
-        case ANZCalendarNavigatorTypeNextYear:
-            self.lblYear.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-            break;
-            
-        default:
-            self.lblMonth.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-            break;
-    }
+- (void)adjustNavigatorLabel {
+    self.lbl.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
-- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes
-{
-    NSDateComponents* components = [NSDateComponents new];
-    NSTimeZone* tz = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-    [components setTimeZone:tz];
+- (void)updateLabeWithDisplayDate:(NSDate *)displayDate attributes:(NSDictionary *)attributes {
+    NSString *displayText = [self displayTextForDate:displayDate];
+    self.lbl.attributedText = [[NSAttributedString alloc] initWithString:displayText attributes:attributes];
+}
+
+- (NSString *)displayTextForDate:(NSDate *)date {
+    NSDateComponents *components = [self componentsForDate:date];
+    return [self textForComponents:components];
+}
+
+- (NSDateComponents *)componentsForDate:(NSDate *)date {
+    NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:date];
     switch (self.navigationType) {
         case ANZCalendarNavigatorTypePrevYear:
-            [components setYear: -1];
+            components.year += -1;
             break;
-           
+            
         case ANZCalendarNavigatorTypeNextYear:
-            [components setYear: 1];
+            components.year = 1;
             break;
             
         case ANZCalendarNavigatorTypePrevMonth:
-            [components setMonth: -1];
+            components.month += -1;
             break;
             
         default:
-            [components setMonth: 1];
+            components.month += 1;
             break;
     }
-    
-    NSCalendar* calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate* targetDate = [calendar dateByAddingComponents:components toDate:displayDate options:0];
-    components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:targetDate];
-    
-    if (self.lblYear) {
-        self.lblYear.attributedText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld", [components year]] attributes:attributes];
+    return components;
+}
+
+- (NSString *)textForComponents:(NSDateComponents *)components {
+    if ([self isTypeYear]) {
+        return [NSString stringWithFormat:@"%d", [components year]];
     } else {
-        NSString* month;
-        switch ([components month]) {
-            case 1:
-                month =@"J\nA\nN";
-                break;
-            
-            case 2:
-                month = @"F\nE\nB";
-                break;
-                
-            case 3:
-                month = @"M\nA\nR";
-                break;
-                
-            case 4:
-                month = @"A\nP\nR";
-                break;
-                
-            case 5:
-                month = @"M\nA\nY";
-                break;
-                
-            case 6:
-                month = @"J\nU\nN";
-                break;
-                
-            case 7:
-                month = @"J\nU\nL";
-                break;
-                
-            case 8:
-                month = @"A\nU\nG";
-                break;
-                
-            case 9:
-                month = @"S\nE\nP";
-                break;
-                
-            case 10:
-                month = @"O\nC\nT";
-                break;
-                
-            case 11:
-                month = @"N\nO\nV";
-                break;
-                
-            case 12:
-            default:
-                month = @"D\nE\nC";
-                break;
-        }
-        
-        self.lblMonth.attributedText = [[NSAttributedString alloc] initWithString:month attributes:attributes];
+        return [self monthStringForInteger:[components month]];
+    }
+}
+
+- (NSString *)monthStringForInteger:(NSInteger)month {
+    switch (month) {
+        case 1:
+        case 13:
+            return @"J\nA\nN";
+        case 2:
+            return @"F\nE\nB";
+        case 3:
+            return @"M\nA\nR";
+        case 4:
+            return @"A\nP\nR";
+        case 5:
+            return @"M\nA\nY";
+        case 6:
+            return @"J\nU\nN";
+        case 7:
+            return @"J\nU\nL";
+        case 8:
+            return @"A\nU\nG";
+        case 9:
+            return @"S\nE\nP";
+        case 10:
+            return @"O\nC\nT";
+        case 11:
+            return  @"N\nO\nV";
+        case 12:
+        case 0:
+        default:
+            return @"D\nE\nC";
     }
 }
 
