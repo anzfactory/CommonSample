@@ -38,7 +38,7 @@
         }
     } else {
         if (_isStrong) {
-            return _attributesStrongSunday;
+            return _attributesStrongWeekday;
         } else if (_isCurrentMonth) {
             return _attributesWeekday;
         } else {

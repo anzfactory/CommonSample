@@ -311,9 +311,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = ANZ;
 				TargetAttributes = {
-					A1395E7B184E1AF40027B7BD = {
-						DevelopmentTeam = L2JKAT4K4R;
-					};
 					A1395E96184E1AF40027B7BD = {
 						TestTargetID = A1395E7B184E1AF40027B7BD;
 					};
@@ -510,6 +507,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CommonSample/CommonSample-Prefix.pch";
 				INFOPLIST_FILE = "CommonSample/CommonSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -526,6 +524,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CommonSample/CommonSample-Prefix.pch";
 				INFOPLIST_FILE = "CommonSample/CommonSample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
